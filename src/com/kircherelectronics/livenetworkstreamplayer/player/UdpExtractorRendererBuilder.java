@@ -24,11 +24,13 @@ import com.google.android.exoplayer.MediaCodecVideoTrackRenderer;
 import com.google.android.exoplayer.TrackRenderer;
 import com.google.android.exoplayer.extractor.Extractor;
 import com.google.android.exoplayer.extractor.ExtractorSampleSource;
+import com.google.android.exoplayer.extractor.live.ExtractorLiveSampleSource;
 import com.google.android.exoplayer.text.TextTrackRenderer;
 import com.google.android.exoplayer.upstream.Allocator;
 import com.google.android.exoplayer.upstream.DataSource;
 import com.google.android.exoplayer.upstream.DefaultAllocator;
 import com.google.android.exoplayer.upstream.DefaultBandwidthMeter;
+import com.google.android.exoplayer.upstream.RtpDataSource;
 import com.google.android.exoplayer.upstream.UdpDataSource;
 import com.kircherelectronics.livenetworkstreamplayer.player.Player.RendererBuilder;
 
@@ -64,9 +66,13 @@ public class UdpExtractorRendererBuilder implements RendererBuilder
 		DefaultBandwidthMeter bandwidthMeter = new DefaultBandwidthMeter(
 				player.getMainHandler(), null);
 
-		DataSource dataSource = new UdpDataSource(bandwidthMeter, 2000);
+		DataSource dataSource = new RtpDataSource(bandwidthMeter, 2000);
 
-		ExtractorSampleSource sampleSource = new ExtractorSampleSource(uri,
+//		ExtractorSampleSource sampleSource = new ExtractorSampleSource(uri,
+//				dataSource, allocator, BUFFER_SEGMENT_COUNT
+//						* BUFFER_SEGMENT_SIZE);
+		
+		ExtractorLiveSampleSource sampleSource = new ExtractorLiveSampleSource(uri,
 				dataSource, allocator, BUFFER_SEGMENT_COUNT
 						* BUFFER_SEGMENT_SIZE);
 
